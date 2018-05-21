@@ -17,6 +17,15 @@ exports.insertOne = function(url,dbName,collection,data,callback){
         })
     });
 }
+//插入多条数据
+exports.insertMany = function(url,dbName,collection,array,callback){
+    __Connect(url,function(err,client){
+       var db = client.db(dbName);
+       db.collection(collection).insertMany(array,function(err,result){
+           callback(err,result);
+       })
+    });
+}
 //按条件查找数据
 exports.find = function(url,dbName,collection,condition,callback){
     __Connect(url,function(err,client){
@@ -33,5 +42,14 @@ exports.update = function(url,dbName,collection,condition,data,callback){
         db.collection(collection).updateOne(condition,{$set:data},function(err,result){
            callback(err,result);
         });
+    });
+}
+//删除数据
+exports.remove = function(url,dbName,collection,condition,callback){
+    __Connect(url,function(err,client){
+       var db = client.db(dbName);
+       db.collection(collection).removeOne(condition,function(err,result){
+           callback(err,result);
+       })
     });
 }
