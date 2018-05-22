@@ -23,6 +23,7 @@ exports.insertMany = function(url,dbName,collection,array,callback){
        var db = client.db(dbName);
        db.collection(collection).insertMany(array,function(err,result){
            callback(err,result);
+           client.close();
        })
     });
 }
@@ -32,6 +33,7 @@ exports.find = function(url,dbName,collection,condition,callback){
        var db = client.db(dbName);
        db.collection(collection).find(condition).toArray(function(err,docs){
            callback(err,docs);
+           client.close();
        })
     });
 }
@@ -50,6 +52,7 @@ exports.remove = function(url,dbName,collection,condition,callback){
        var db = client.db(dbName);
        db.collection(collection).removeOne(condition,function(err,result){
            callback(err,result);
+           client.close();
        })
     });
 }
